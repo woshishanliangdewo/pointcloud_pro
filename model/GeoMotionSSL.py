@@ -1,9 +1,18 @@
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+<<<<<<< HEAD
 from torch.utils.data import Dataset, DataLoader
 import numpy as np
 from utils.pointnet_utils import PointNetEncoder
+=======
+from torch.utils.data import DataLoader
+
+from data.windfieldDataset import WindFieldSSL
+from utils.pointnet_utils import PointNetEncoder
+
+>>>>>>> 0cbdd77559c8666e6dfbc24fadfd6ba60dec75be
 
 # 几何-运动一致性自监督模型
 class GeoMotionSSL(nn.Module):
@@ -69,13 +78,13 @@ class SSLMultiLoss(nn.Module):
         self.temp = temp
 
 
-    def compute_curvature(geo):
+    def compute_curvature(self):
     # 基于局部邻域协方差分析计算点云曲率
-        B, N, _ = geo.size()
-        curvatures = torch.zeros(B, N).to(geo.device)
+        B, N, _ = self.size()
+        curvatures = torch.zeros(B, N).to(self.device)
         
         for b in range(B):
-            points = geo[b]  # [N, 3]
+            points = self[b]  # [N, 3]
             
             # 构建KDTree
             kdtree = KDTree(points.cpu().numpy())
@@ -99,7 +108,7 @@ class SSLMultiLoss(nn.Module):
 
     def geometric_consistency(self, pred_delta, geo, flow):
         # 基于几何曲率的运动一致性约束
-        curvature = compute_curvature(geo)  # 几何曲率计算函数
+        curvature = self.compute_curvature()  # 几何曲率计算函数
         return torch.mean(curvature * torch.norm(pred_delta, dim=-1))
     
     def contrastive_loss(self, feat1, feat2):

@@ -76,11 +76,11 @@ class WindFieldModel:
         loss_sequence = []
         for t in tqdm(range(1, wind_data.shape[0])):
             flow_pair = wind_data[t-1:t+1]  # 两帧计算光流
-            loss = horn_schunck_3d(flow_pair, alpha=0.5, iterations=50)
+            loss = horn_schunck_3d(flow_pair, iterations=50)
             loss_sequence.append(loss)
         
         # 多帧累积增强
-        accumulated_loss = multi_frame_accumulation(loss_sequence, window_size=5)
+        accumulated_loss = multi_frame_accumulation(loss_sequence)
         
         # 异常检测（基于动态阈值）
         mean_loss = np.mean(accumulated_loss)
