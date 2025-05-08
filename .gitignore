@@ -119,7 +119,6 @@ env/
 Pipfile
 Pipfile.lock
 poetry.lock
-requirements.txt  # 建议保留，但若动态生成可忽略
 
 # 操作系统文件
 .DS_Store
