@@ -1,8 +1,6 @@
+import torch
 import torch.nn as nn
 from torch.nn import TransformerEncoder, TransformerEncoderLayer
-import torch
-from torch.utils.data import Dataset, DataLoader
-import numpy as np
 
 
 class SpatioTemporalTransformer(nn.Module):

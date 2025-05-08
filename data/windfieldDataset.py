@@ -1,9 +1,7 @@
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-from torch.utils.data import Dataset, DataLoader
-from pointnet_utils import PointNetEncoder  # 需要自定义点云编码器
 import numpy as np
+import torch
+from torch.utils.data import Dataset
+
 
 # 自监督数据生成器
 class WindFieldSSL(Dataset):
