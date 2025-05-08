@@ -1,6 +1,6 @@
 import numpy as np
 import pyvista as pv
-
+from data.wind_field_generate import generate_3d_wind_field
 
 
 # PyVista交互式可视化（支持旋转、缩放）
@@ -53,11 +53,8 @@ if __name__ == "__main__":
     x, y, z, u, v, w = generate_3d_wind_field()
     
     # 选择可视化方式
-    visualization_type = 2  # 1=Mayavi, 2=PyVista
-    
-    if visualization_type == 1:
-        mayavi_3d_flow(x, y, z, u, v, w)
-    else:
-        pyvista_3d_flow(x, y, z, u, v, w)
+    visualization_type = 2  # 1=Mayavi, 2=PyVista 
+
+    pyvista_3d_flow(x, y, z, u, v, w)
 
 

@@ -2,7 +2,7 @@ import numpy as np
 from scipy.ndimage import gaussian_filter
 from tqdm import tqdm
 from utils.Convutil import convolve3d
-
+from data.windfieldDataset import generate_wind_field
 class WindFieldModel:
 
     def horn_schunck_3d(flow_sequence, alpha=0.2, iterations=100):

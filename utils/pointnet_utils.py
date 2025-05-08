@@ -32,6 +32,7 @@ class STN3d(nn.Module):
         x = x.view(-1, 3, 3)
         return x
 
+
 class PointNetEncoder(nn.Module):
     def __init__(self, global_feat=True, feature_transform=True, channel=3):
         super().__init__()

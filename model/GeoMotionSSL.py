@@ -3,6 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import Dataset, DataLoader
 import numpy as np
+from utils.pointnet_utils import PointNetEncoder
 
 # 几何-运动一致性自监督模型
 class GeoMotionSSL(nn.Module):
@@ -58,6 +59,7 @@ class GeoMotionSSL(nn.Module):
         proj_feat = self.proj_head(fused_feat)
         
         return delta_geo, recon_flow, proj_feat
+
 
 # 多任务自监督损失
 class SSLMultiLoss(nn.Module):
@@ -133,6 +135,7 @@ class KDTree:
             dists = np.linalg.norm(self.data - p, axis=1)
             indices[i] = np.argpartition(dists, k)[:k]
         return None, indices
+
 
 def augment_batch(geo, flow):
     """物理合理的数据增强"""

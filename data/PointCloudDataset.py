@@ -6,8 +6,8 @@ class PointCloudDataset(Dataset):
     def __init__(self, seq_length=10, point_num=1024):
         """
         模拟点云时空序列数据
-        :param seq_length: 时间序列长度（默认10帧）
-        :param point_num: 单帧点云数量（默认1024点）
+        :param seq_length: 时间序列长度(默认10帧)
+        :param point_num: 单帧点云数量(默认1024点)
         """
         # 生成正态分布的空间坐标 (batch, seq, points, 3)
         self.positions = np.random.randn(100, seq_length, point_num, 3)  # 100个样本
