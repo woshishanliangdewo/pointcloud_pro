@@ -1,15 +1,17 @@
-<<<<<<< HEAD:data/windfieldDataset.py
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import Dataset, DataLoader
-from utils.pointnet_utils import PointNetEncoder  # 需要自定义点云编码器
-=======
->>>>>>> 0cbdd77559c8666e6dfbc24fadfd6ba60dec75be:dataset/windfieldDataset.py
 import numpy as np
 import torch
 from torch.utils.data import Dataset
+import os
+import sys
 
+pythonpath = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+print(pythonpath)
+sys.path.insert(0,pythonpath)
+from utils.pointnet_utils import PointNetEncoder  # 需要自定义点云编码器
 
 # 自监督数据生成器
 class WindFieldSSL(Dataset):
@@ -38,7 +40,7 @@ class WindFieldSSL(Dataset):
         cube_size = np.random.uniform(1.0, 3.0, 3)
         cube_mask = np.all((coords > cube_min) & (coords < cube_min+cube_size), axis=1)
         coords[cube_mask] += np.random.normal(scale=0.1, size=(cube_mask.sum(),3))
-        
+        print(coords)
         return coords
 
 
@@ -99,3 +101,8 @@ class WindFieldSSL(Dataset):
     def __getitem__(self, idx):
         coords, velocities = self.data[idx]
         return torch.from_numpy(coords), torch.from_numpy(velocities)
+
+if __name__== "__main__":
+    wind = WindFieldSSL()
+    wind.generate_obstacle_field()
+        
